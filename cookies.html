@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+  <head>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script>
+            $(function() {				
+				if ($('#remember').attr('checked')) {
+						var username = $('#username').val();
+						var password = $('#password').val();
+						// set cookies to expire in 14 days
+						$.cookie('username', username);
+						$.cookie('password', password);
+						$.cookie('remember', true);
+					} else {
+						// reset cookies
+						$.cookie('username', null);
+						$.cookie('password', null);
+						$.cookie('remember', null);
+					}
+
+					var remember = $.cookie('remember');
+					if (remember == true) {
+						var username = $.cookie('username');
+						var password = $.cookie('password');
+						// autofill the fields
+						$('#username').attr("value", username);
+						$('#password').attr("value", password);
+					}
+					$('#submit').click(function() {
+						window.location.href="index.html";
+					});				
+				});
+			</script>
+		</head>
+	<body>        
+		<div class="container">
+			<form class="form-signin">
+				<h2 class="form-signin-heading">Please sign in</h2>
+				<input type="text" class="input-block-level" placeholder="Email address" id='username'>
+				<input type="password" class="input-block-level" placeholder="Password" id="password">
+				<label class="checkbox">
+					<input type="checkbox" value="remember-me" id="remember"> Remember me
+				</label>
+				<button class="btn btn-large btn-primary" type="submit" id="submit">Sign in</button>
+			</form>
+		</div> 
+	</body>
+</html>

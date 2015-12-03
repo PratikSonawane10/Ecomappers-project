@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Starter</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+	<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+	
+	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  
+	
+	<script src="dist/js/app.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+	
+	<script src="bootstrap/daterangepicker/moment.js" type="text/javascript"></script>
+    <script src="bootstrap/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+	
+	<script src="plugins/flot/jquery.flot.min.js"></script>
+    <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+    <script src="plugins/flot/jquery.flot.resize.min.js"></script>
+    <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+    <script src="plugins/flot/jquery.flot.time.min.js"></script>
+	<!-- daterange picker -->
+	<link href="plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="bootstrap/daterangepicker/daterangepicker.css" type="text/css" />
+	
+   <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+   
+   <script src="js/roomwiseSensorsDetails.js"></script>
+   <script src="js/notification.js"></script>
+   <script src="js/welcomeTabs.js"></script>
+   <script src="js/sensorSuggessions.js"></script>
+  <script>
+  $(function() {
+    $( "#tabs" ).tabs();
+  });
+  </script>
+   <style>
+		#sensorNotificationLabel{
+			background-color: red !important;
+		};
+		
+   </style>
+  </head>
+  
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+
+      <!-- Main Header -->
+		<header class="main-header">
+			<a href="index2.html" class="logo">
+			  <!-- mini logo for sidebar mini 50x50 pixels -->
+			  <span class="logo-mini"><b>A</b>LT</span>
+			  <!-- logo for regular state and mobile devices -->
+			  <span class="logo-lg"><b>Eco</b>Mappers</span>
+			</a>
+
+        <!-- Header Navbar -->
+			<nav class="navbar navbar-static-top" role="navigation">          
+				<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+					<span class="sr-only">Toggle navigation</span>
+				</a>
+          <!-- Navbar Right Menu -->
+				<div class="navbar-custom-menu" id="headerMenu">
+					<ul class="nav navbar-nav" id="notificationMenu">   
+						<li class="dropdown notifications-menu" id="userNotifications">					
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-bell-o"></i>
+								<span class="label label-warning" id="userNotificationLabel">10</span>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="header" id="noOfNotificationText">You have 10 notifications</li>
+								<li>								
+									<ul class="menu" id="showAllNotifications">
+										<li><!-- start notification -->
+											<a href="#">
+											  <i class="fa fa-users text-aqua"></i> 5 new members joined today
+											</a>
+										</li><!-- end notification -->
+									</ul>
+								</li>
+								<li class="footer" id="viewAllNotification"><a href="#">View all</a></li>
+							</ul>
+						</li>
+						<li class="dropdown user user-menu"  id="userProfile">                
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">                  
+								<img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">                 
+								<span class="hidden-xs" id="usernameLabel"></span>
+							</a>
+							<ul class="dropdown-menu">                  
+								
+								<li class="user-footer">
+									<div class="pull-left">
+										<a href="#" class="btn btn-default btn-flat">Profile</a>
+									</div>
+									<div class="pull-right">
+									  <a href="login.html" class="btn btn-default btn-flat"id="signout" >Sign out</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+					  <!-- Control Sidebar Toggle Button -->
+						<li id="sensorNotification"  class="sensorSuggessions">
+							<a href="#" data-toggle="control-sidebar" >
+								<i class="fa fa-gears"></i>
+								<span class="label label-warning" id="sensorNotificationLabel" >1</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+      
+		<aside class="main-sidebar">       
+			<section class="sidebar">
+				<form action="#" method="get" class="sidebar-form">
+					<div class="input-group">
+				  <input type="text" name="q" class="form-control" placeholder="Search...">
+				  <span class="input-group-btn">
+					<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+				  </span>
+				</div>
+			  </form>
+			 
+			   <ul class="sidebar-menu" >             
+					<li class="treeview">
+						<a href="index.html"><i class="fa fa-link"></i> <span>Welcome Page</span> <i class="fa fa-angle-left pull-right"></i></a>				  
+					</li>
+				</ul>
+				<ul class="sidebar-menu" > 
+					<li id="getroomsList">
+						<a href="#"><i class="fa fa-link"></i> <span>Device Location</span> <i class="fa fa-angle-left pull-right"></i></a>
+					</li>
+				</ul>
+				<div class="sidebar-menu" id="dynamicList">
+				
+				</div>
+			</section>       
+		</aside>
+		
+		<div class="content-wrapper" id="includeContent">        
+			
+			<section class="content-header">
+				<h3>Welcome</h3>
+			</section>
+			<!-- Main content -->
+				<section class="content">
+					<div id="tabs">
+						<ul>
+							<li><a href="#tabs-1">Configure Device</a></li>
+							<li><a href="#tabs-2">Edit Device</a></li>
+							<li><a href="#tabs-3">Remove Device</a></li>
+						</ul>
+						<div id="tabs-1">			
+							<div class="login-box-body" id="addDevice">
+								<p class="login-box-msg"><b>Add Your device details</b></p>
+								<form id="deviceDetailsForm" method="post">
+									<div class="form-group has-feedback">
+										<input type="text" id="addDeviceSerialNo" class="form-control" placeholder="Device Serial No">										
+									</div>
+									<div class="form-group has-feedback">
+										<input type="text" id="addDeviceRoomNo" class="form-control" placeholder="Location of Device">										
+									</div>
+									<div class="row">
+										<div class="col-xs-4">
+											<button type="button" id="addDeviceSubmit" class="btn btn-primary btn-block btn-flat">Submit</button>
+										</div>
+									</div>
+								</form>
+							</div>		
+						</div>
+						
+						<div id="tabs-2">
+							<div class="login-box-body" id="editDevice">
+								<p class="login-box-msg"><b>Add Your device details</b></p>
+								<form id="editDeviceDetailsForm" method="post">
+									<div class="form-group has-feedback">											
+										<select name="selectDeviceEdit" id="selectDeviceEdit" class="userDevices">
+											<option selected="selected"> Select your device</option>
+										</select>
+									</div>
+									<div class="editDevice form-group has-feedback">
+										<input type="text" id="editDeviceRoomNo" class="form-control" placeholder="change Device Room No">										
+									</div>
+									<div class="row">
+										<div class="col-xs-4">
+											<button type="button" id="editDeviceSubmit" class="btn btn-primary btn-block btn-flat">Submit</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div id="tabs-3">
+							<div class="login-box-body" id="deleteDevice">
+								<p class="login-box-msg"><b>Remove Your device details</b></p>
+								<form id="deleteDeviceDetailsForm" method="post">
+									<div class="form-group has-feedback">										
+										<select name="selectDeviceRemove" id="selectDeviceRemove" class="userDevices">
+											<option selected="selected"> Select your device</option>
+										</select>										
+									</div>	
+									<div class="row">
+										<div class="col-xs-4">
+											<button type="button" id="removeDeviceSubmit" class="btn btn-primary btn-block btn-flat">Submit</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</section>
+			
+		</div>
+		<footer class="main-footer">
+			<strong>Copyright &copy; 2015 <a href="#">Courage Digital</a>.</strong> All rights reserved.
+		</footer>
+
+      <!-- Control Sidebar -->
+		<aside	class="control-sidebar control-sidebar-dark">
+			<!-- Create the tabs -
+			<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+				<li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+				<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+			</ul>->
+			<!-- Tab panes -->
+			<div class="tab-content" id="suggessionSlider">
+				<p id="roomno"></p>
+				<div class="accordion" class="control-sidebar-menu">
+					<h4><i class="accordianSensorList menu-icon fa fa-birthday-cake bg-red"></i>&nbsp; PM 2.5</h4>
+						<div class="pane" id="pm2">
+							<h5><b><i><u> Sensitive Groups:- </u></i></b></h5>
+								<p id="SenitiveGrouppm2"></p>
+							<h5 class="healthEffects"><b><i><u> Health Effects:- </u> </i> </b></h5>
+								<p id="HeathEffectpm2"> </p>
+							<h5 class="cautionarys"><b><i><u> Cautionary:- </u> </i></b></h5>
+								<p id="Cautionarypm2"> </p>
+						</div>
+					
+					<h4><i class="accordianSensorList menu-icon fa fa-birthday-cake bg-red"></i>&nbsp; PM 10</h4>
+						<div class="pane" id="pm10">
+							<h5><b><i><u> Sensitive Groups:- </u> </i></b></h5>
+								<p id="SenitiveGrouppm10"> </p>
+							<h5 class="healthEffects"><b><i><u> Health Effects:- </u> </i> </b></h5>
+								<p id="HeathEffectpm10"> </p>
+							<h5 class="cautionarys"><b><i><u> Cautionary:- </u> </i></b></h5>
+								<p id="Cautionarypm10"> </p>
+						</div>
+					<h4><i class="accordianSensorList menu-icon fa fa-birthday-cake bg-red"></i>&nbsp; CO</h4>
+						<div class="pane"id="co">
+							<h5><b><i><u> Sensitive Groups:- </u> </i></b></h5>
+								<p id="SenitiveGroupco"> </p>							
+							<h5 class="healthEffects"><b><i><u> Health Effects:- </u> </i> </b></h5>
+								<p id="HeathEffectco"> </p>							
+							<h5 class="cautionarys"><b><i><u> Cautionar:- </u></i></b></h5>
+								<p id="cautionaryco"> </p>
+						</div>
+						
+					<h4><i class="accordianSensorList menu-icon fa fa-birthday-cake bg-red"></i>&nbsp; NO<sub>2</sub> </h4>
+						<div class="pane"id="no2">
+							<h5><b><i><u> Sensitive Groups:- </u></i></b></h5>
+								<p id="SenitiveGroupno2"> </p>
+							<h5 class="healthEffects"><b><i><u> Health Effects:- </u> </i> </b></h5>
+								<p id="HeathEffectno2"> </p>
+							<h5 class="cautionarys"><b><i><u> Cautionary:- </u> </i></b></h5>
+								<p id="cautionaryno2"> </p>
+						</div>		
+				</div>				
+			</div>
+		</aside>
+      <div class="control-sidebar-bg"></div>
+	</div>
+  </body>
+</html>
+
