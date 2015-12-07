@@ -13,7 +13,7 @@ $(function() {
 	var createDynamicList = document.getElementById("dynamicList");
 	var li;	
 	// to laod room no as per loged in user
-		$.get("http://localhost/EcomappersAPI/api/ecomappersapi.php?email="+email+"&method=userRooms&format=json")
+		$.get("http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?email="+email+"&method=userRooms&format=json")
 			.done(function (response){
 			if(response.loadRooomsList ==""){
 					alert("Device is not available.. please configure your device..");
@@ -46,13 +46,14 @@ $(function() {
 						localStorage.setItem("roomno",roomno);
 						showAllSensorsByRoom(roomno, email);	
 						$("#includeContent").load("sensorList.html");
+						
 					}	
 					
 				});		
 		});
 	//show sensor values as per room no of loged in user
 	function showAllSensorsByRoom(roomno,email) {		
-		$.get("http://localhost/EcomappersAPI/api/ecomappersapi.php?roomno="+roomno+"&email="+email+"&method=roomWiseSensors&format=json")
+		$.get("http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?roomno="+roomno+"&email="+email+"&method=roomWiseSensors&format=json")
 			.done(function (response){
 					if(response.showRoomWiseSensorsResponse==""){						
 						alert("Data is not available for these room try another room..");						
@@ -74,7 +75,7 @@ $(function() {
 								var valueOfSensor = sensorValue;
 								var nameOfSensor=i;								
 								//alert(i+" "+valueOfSensor);
-								$.get("http://localhost/EcomappersAPI/api/ecomappersapi.php?valueOfSensor="+valueOfSensor+"&nameOfSensor="+nameOfSensor+"&method=sensorStatus&format=json")
+								$.get("http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?valueOfSensor="+valueOfSensor+"&nameOfSensor="+nameOfSensor+"&method=sensorStatus&format=json")
 									.done(function (response){
 										$.each(response.showStatusResponse, function(i,sensorStatus){
 											var status = sensorStatus.status;
@@ -128,10 +129,12 @@ $(function() {
 				
 				$('.showGraph').on("click",function () {										
 					var selectedSensorName = $(this).attr("id");
-					localStorage.setItem("sensorsName",selectedSensorName);
+					var sensNameForGraph=$(this).find("span").attr("id");
+					localStorage.setItem("sensNameForGraph",sensNameForGraph);
+					localStorage.setItem("nameOfSensor",selectedSensorName);
 					localStorage.setItem("email",email);					
 					$("#includeContent").load("graphOfSensor.html", function(){
-						var nameOfSensor=localStorage.getItem("sensorsName");
+						var nameOfSensor=localStorage.getItem("nameOfSensor");
 						var email=localStorage.getItem("email");
 						var roomno=localStorage.getItem("roomno");
 						$("#sensNameLabel").append(nameOfSensor);
@@ -152,20 +155,34 @@ $(function() {
 						});      
 						var realtime = "on";
 						//for the first graph which is default
-						var url = "http://localhost/EcomappersAPI/api/ecomappersapi.php?method=defaultSensorGraph&format=json&email="+email+"&nameOfSensor="+nameOfSensor+"&roomno="+roomno+""; //../ecoAPI/dev
+						var url = "http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?method=defaultSensorGraph&format=json&email="+email+"&nameOfSensor="+sensNameForGraph+"&roomno="+roomno+""; //../ecoAPI/dev
 							
 						jsonData();
 						//Take the graph data
 						function jsonData() {
+							var sensNameForGraph=localStorage.getItem("sensNameForGraph");
 							$.getJSON(url, function(response) {
 								if($.isArray(response.showSensorDetailsResponse) && response.showSensorDetailsResponse.length) {
 									//var env = environment.getEnv();
 									var Sensor1 = [];
 									var Time = [];
-									$.each(response.showSensorDetailsResponse, function(i, sensorPoints) {
-										sensorPointsInString = sensorPoints;
-										Sensor1.push(parseFloat(sensorPointsInString.poll_sen1));
-										var date = new Date(sensorPointsInString.time);
+									$.each(response.showSensorDetailsResponse, function(key, value) {
+										var sensorPointsInString = value;
+										var sensorName;
+										var sensorTime;
+										var sensorValue;
+										for(var i in sensorPointsInString) {
+											if(i!== "sen_time") {
+												sensorName = i;
+												sensorValue = sensorPointsInString[i]
+											} else {
+												sensorTime = i;
+												
+											}
+											
+										}
+										Sensor1.push(parseFloat(sensorValue)); //sensorPointsInString.sensNameForGraph
+										var date = new Date(sensorPointsInString.sen_time);
 										var dateInMilliSeconds = date.getTime();
 										Time.push(dateInMilliSeconds);
 									});
@@ -217,7 +234,7 @@ $(function() {
 							$formattedToTime = $toTimeTwentyFourHourFormat + ":00";
 							$fullToDateWithTime = $formattedToDate + " " + $formattedToTime;
 							//for the graph but as per user selected date
-							url = "http://localhost/EcomappersAPI/api/ecomappersapi.php?method=showGraphOfSensor&format=json&fromDate="+$fullFromDateWithTime+"&toDate="+$fullToDateWithTime+"&email="+email+"&nameOfSensor="+nameOfSensor+"&roomno="+roomno+" "; //../ecoAPI/dev
+							url = "http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?method=showGraphOfSensor&format=json&fromDate="+$fullFromDateWithTime+"&toDate="+$fullToDateWithTime+"&email="+email+"&nameOfSensor="+sensNameForGraph+"&roomno="+roomno+" "; //../ecoAPI/dev
 							realtime = "off";
 							jsonData();
 						});
@@ -252,7 +269,7 @@ $(function() {
 								},
 								yaxis: {
 									min: 0,
-									max: 0.0500,
+									max: 0.9000,
 									show: true
 								},
 								xaxis: {

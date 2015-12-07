@@ -29,8 +29,8 @@ $(function() {
 					$.cookie('password', password, { expires: 14 });
 					$.cookie('remember', true, { expires: 14 });    					
 				} 
-				/*
-				var fullURL = sessionStorage.getItem("url");
+				
+				/*var fullURL = sessionStorage.getItem("url");
 				var separateURL =  fullURL.split("/");
 				if(separateURL[4]!=="") {
 					var url = separateURL[4];
@@ -46,7 +46,7 @@ $(function() {
 					method : "login",
 					format : "json"
 				};		
-				$.post("http://localhost/EcomappersAPI/api/userLoginAPI.php", data)
+				$.post("http://storage.couragedigital.com/ecoAPI/dev/api/userLoginAPI.php", data)
 				.done(function(response) {
 					if(response.loginStatus==="LOGGED_IN") {
 						
