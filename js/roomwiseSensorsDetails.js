@@ -13,7 +13,7 @@ $(function() {
 	var createDynamicList = document.getElementById("dynamicList");
 	var li;	
 	// to laod room no as per loged in user
-		$.get("http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?email="+email+"&method=userRooms&format=json")
+		$.get("/ecoAPI/dev/api/ecomappersapi.php?email="+email+"&method=userRooms&format=json")
 			.done(function (response){
 			if(response.loadRooomsList ==""){
 					alert("Device is not available.. please configure your device..");
@@ -53,79 +53,38 @@ $(function() {
 		});
 	//show sensor values as per room no of loged in user
 	function showAllSensorsByRoom(roomno,email) {		
-		$.get("http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?roomno="+roomno+"&email="+email+"&method=roomWiseSensors&format=json")
+		$.get("/ecoAPI/dev/api/ecomappersapi.php?roomno="+roomno+"&email="+email+"&method=roomWiseSensors&format=json")
+
 			.done(function (response){
 					if(response.showRoomWiseSensorsResponse==""){						
 						alert("Data is not available for these room try another room..");						
 					}
 					else{
 						$.each(response.showRoomWiseSensorsResponse, function(i,sensorDetails){
-							
-							var sens1 =sensorDetails.temperature;
-							var sens2 =sensorDetails.pm2;
-							var sens3 =sensorDetails.pm10;
-							var sens4 =sensorDetails.noise;
-							var sens5 =sensorDetails.co;
-							var sens6 =sensorDetails.co2;
-							var sens7 =sensorDetails.no2;
-							var sens8 =sensorDetails.humidity;	
-							var serialNo =sensorDetails.device_serial_no;
-							
-							$.each(sensorDetails,function(i,sensorValue){
-								var valueOfSensor = sensorValue;
-								var nameOfSensor=i;								
-								//alert(i+" "+valueOfSensor);
-								$.get("http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?valueOfSensor="+valueOfSensor+"&nameOfSensor="+nameOfSensor+"&method=sensorStatus&format=json")
-									.done(function (response){
-										$.each(response.showStatusResponse, function(i,sensorStatus){
-											var status = sensorStatus.status;
-											
-											
-											if(status == "good" ){												
-												$("#"+nameOfSensor).css('cssText','background-color:#E00000 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');
-												
-											} else if(status == "moderate" ){
-												$("#"+nameOfSensor).css('cssText','background-color:yellow !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');
-												
-											}else if(status == "Unhealthy for Sensitive Groups"){
-												$("#"+nameOfSensor).css('cssText','background-color:#FF7600 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');
-												
-											}else if(status == "Unhealthy"){
-												$("#"+nameOfSensor).css('cssText','background-color:red !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');
-												
-											}else if(status == "very Unhealthy" ){
-												$("#"+nameOfSensor).css('cssText','background-color:#990049 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');
-												
-											}else if(status == "Hazardous"){
-												$("#"+nameOfSensor).css('cssText','background-color:#7e0018 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');
-											}
-											
-										});
-									});
-							});
-							
-							
-							$('#sens1Value').empty(); 
-							$('#sens2Value').empty(); 
-							$('#sens3Value').empty(); 
-							$('#sens4Value').empty(); 
-							$('#sens5Value').empty(); 
-							$('#sens6Value').empty(); 
-							$('#sens7Value').empty(); 
-							$('#sens8Value').empty(); 
-														
-							$("#sens1Value").append(sens1);					
-							$("#sens2Value").append(sens2);					
-							$("#sens3Value").append(sens3);					
-							$("#sens4Value").append(sens4);
-							$("#sens5Value").append(sens5);					
-							$("#sens6Value").append(sens6);					
-							$("#sens7Value").append(sens7);					
-							$("#sens8Value").append(sens8);
+							for(var i = 0; i < Object.keys(sensorDetails).length; i++) {    
+								var status= sensorDetails.status;
+								var nameOfSensor = sensorDetails.sensor_name;
+								var sensvalue= sensorDetails.value;							   
+							}
+							$("#sens"+nameOfSensor).empty();
+							$("#sens"+nameOfSensor).append(sensvalue);
+
+								if(status == "good" ){												
+									$("#"+nameOfSensor).css('cssText','background-color:green !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');											
+								} else if(status == "moderate" ){
+									$("#"+nameOfSensor).css('cssText','background-color:yellow !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');												
+								}else if(status == "unhealthy for Sensitive Groups"){
+									$("#"+nameOfSensor).css('cssText','background-color:#FF7600 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');												
+								}else if(status == "unhealthy"){
+									$("#"+nameOfSensor).css('cssText','background-color:red !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');												
+								}else if(status == "very Unhealthy" ){
+									$("#"+nameOfSensor).css('cssText','background-color:#990049 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');												
+								}else if(status == "hazardous"){
+									$("#"+nameOfSensor).css('cssText','background-color:#7e0018 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');
+								}
 											
 						});
 					}	
-						
 				
 				$('.showGraph').on("click",function () {										
 					var selectedSensorName = $(this).attr("id");
@@ -155,12 +114,30 @@ $(function() {
 						});      
 						var realtime = "on";
 						//for the first graph which is default
-						var url = "http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?method=defaultSensorGraph&format=json&email="+email+"&nameOfSensor="+sensNameForGraph+"&roomno="+roomno+""; //../ecoAPI/dev
-							
+						var url = "/ecoAPI/dev/api/ecomappersapi.php?method=defaultSensorGraph&format=json&email="+email+"&nameOfSensor="+sensNameForGraph+"&roomno="+roomno+""; //../ecoAPI/dev
+						
 						jsonData();
-						//Take the graph data
-						function jsonData() {
+						function sensorPointRange(){
 							var sensNameForGraph=localStorage.getItem("sensNameForGraph");
+							var minimumValue;
+							var maximumValue;
+							
+							$.get("/ecoAPI/dev/api/ecomappersapi.php?method=pointRangeForYAxis&format=json&nameOfSensor="+sensNameForGraph+"")
+								.done(function (response){
+									$.each(response.showSensorPointsResponse,function (index,sensorPointRange){
+										minimumValue=sensorPointRange.starting_point;
+										maximumValue=sensorPointRange.Ending_point;
+									});
+								});
+								return maximumValue;
+						}
+						//Take the graph data
+						
+						function jsonData() {
+							var endingPointOfSensor = sensorPointRange();
+							
+							var sensNameForGraph=localStorage.getItem("sensNameForGraph");
+							
 							$.getJSON(url, function(response) {
 								if($.isArray(response.showSensorDetailsResponse) && response.showSensorDetailsResponse.length) {
 									//var env = environment.getEnv();
@@ -191,7 +168,7 @@ $(function() {
 									for (var i = 0; i < length; i++) {
 										data.push([Time[i], Sensor1[i]]);
 									}	    			
-									plotGraph(data);	    			    			        
+									plotGraph(data,endingPointOfSensor);	    			    			        
 								}
 								else {
 									alert("No Sensor Data available in the database!");
@@ -234,13 +211,13 @@ $(function() {
 							$formattedToTime = $toTimeTwentyFourHourFormat + ":00";
 							$fullToDateWithTime = $formattedToDate + " " + $formattedToTime;
 							//for the graph but as per user selected date
-							url = "http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?method=showGraphOfSensor&format=json&fromDate="+$fullFromDateWithTime+"&toDate="+$fullToDateWithTime+"&email="+email+"&nameOfSensor="+sensNameForGraph+"&roomno="+roomno+" "; //../ecoAPI/dev
+							url = "/ecoAPI/dev/api/ecomappersapi.php?method=showGraphOfSensor&format=json&fromDate="+$fullFromDateWithTime+"&toDate="+$fullToDateWithTime+"&email="+email+"&nameOfSensor="+sensNameForGraph+"&roomno="+roomno+" "; //../ecoAPI/dev
 							realtime = "off";
 							jsonData();
 						});
 
 						//Plot the Graph
-						function plotGraph(data) {
+						function plotGraph(data,endingPointOfSensor) {
 							dataset = [
 										{ label: "Pollution Sensor 1", data: data }
 									];
@@ -269,7 +246,7 @@ $(function() {
 								},
 								yaxis: {
 									min: 0,
-									max: 0.9000,
+									max: endingPointOfSensor,
 									show: true
 								},
 								xaxis: {
@@ -388,11 +365,9 @@ $(function() {
 			});
 	}
 			var updateInterval = 60000;			
-			function updateSensorValueForRoom() { 
-				if(typeof roomno != "undefined") {
-					showAllSensorsByRoom(roomno,email);
-					setTimeout(updateSensorValueForRoom, updateInterval);		
-				}										
+			function updateSensorValueForRoom() { 				
+				showAllSensorsByRoom(roomno,email);
+				setTimeout(updateSensorValueForRoom, updateInterval);															
 			}
 			updateSensorValueForRoom();	
 			

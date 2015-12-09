@@ -8,7 +8,7 @@ $(function(){
 		if(roomno == null){
 			alert("please select your device location...");
 		}else {
-			$.get("http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?roomno="+roomno+"&email="+email+"&method=showSuggessions&format=json ")
+			$.get("/ecoAPI/dev/api/ecomappersapi.php?roomno="+roomno+"&email="+email+"&method=showSuggessions&format=json ")
 			.done(function (response){
 				$.each(response.showSuggessionsResponse, function(i,suggessions){
 					var nameOfSensor = suggessions.sensor_name;
@@ -24,7 +24,7 @@ $(function(){
 					$("#HeathEffect"+nameOfSensor).append(suggession2);					
 					$("#Cautionary"+nameOfSensor).append(suggession3);	
 					
-					if(suggession2=="none"){
+					/*if(suggession2=="none"){
 						$("#HeathEffect"+nameOfSensor).hide();
 						$(".healthEffects").hide();
 					}
@@ -37,7 +37,7 @@ $(function(){
 						$("#Cautionary"+nameOfSensor).show();
 						$("#HeathEffect"+nameOfSensor).show();	
 						
-					}
+					}*/
 				});
 				
 			});

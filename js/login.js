@@ -46,7 +46,7 @@ $(function() {
 					method : "login",
 					format : "json"
 				};		
-				$.post("http://storage.couragedigital.com/ecoAPI/dev/api/userLoginAPI.php", data)
+				$.post("/ecoAPI/dev/api/userLoginAPI.php", data)
 				.done(function(response) {
 					if(response.loginStatus==="LOGGED_IN") {
 						

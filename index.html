@@ -20,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
 	<!--<link rel="stylesheet" href="bootstrap/css/jquery-ui.css">-->
 	<link rel="stylesheet" href="bootstrap/css/jquery-ui-1.9.2.custom.min.css">
-	
+	 <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
 	<!--<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>-->
 	<script src="plugins/jQuery/jquery-1.9.1.js"></script>
 	
@@ -66,7 +66,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
    </style>
   </head>
   
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-green sidebar-mini">
     <div class="wrapper">
 
       <!-- Main Header -->
@@ -125,7 +125,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					  <!-- Control Sidebar Toggle Button -->
 						<li id="sensorNotification"  class="sensorSuggessions">
 							<a href="#" data-toggle="control-sidebar" >
-								<i class="fa fa-gears"></i>
+								<i class="fa fa-lightbulb-o"></i>
 								<span class="label label-warning" id="sensorNotificationLabel" >1</span>
 							</a>
 						</li>
@@ -147,12 +147,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			 
 			   <ul class="sidebar-menu" >             
 					<li class="treeview">
-						<a href="mainPage.html"><i class="fa fa-link"></i> <span>Welcome Page</span> <i class="fa fa-angle-left pull-right"></i></a>				  
+						<a href="index.html"><i class="fa fa-gears"></i> <span>Device Configuration</span> <i class="fa fa-angle-left pull-right"></i></a>				  
 					</li>
 				</ul>
 				<ul class="sidebar-menu" > 
 					<li id="getroomsList">
-						<a href="#"><i class="fa fa-link"></i> <span>Device Location</span> <i class="fa fa-angle-left pull-right"></i></a>
+						<a href="#"><i class="fa fa-cubes"></i> <span>Devices</span> <i class="fa fa-angle-left pull-right"></i></a>
 					</li>
 				</ul>
 				<div class="sidebar-menu" id="dynamicList">
@@ -250,7 +250,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<p id="roomno"></p>
 				<div class="accordion" class="control-sidebar-menu">
 					<h4><i class="accordianSensorList menu-icon fa fa-angle-down pull-right"></i>&nbsp; PM 2.5</h4>
-						<div class="pane" id="pm2">
+						<div class="pane" id="pm2Sensor">
 							<h5><b><i><u> Sensitive Groups:- </u></i></b></h5>
 								<p id="SenitiveGrouppm2"></p>
 							<h5 class="healthEffects"><b><i><u> Health Effects:- </u> </i> </b></h5>
@@ -260,7 +260,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						</div>
 					
 					<h4><i class="accordianSensorList menu-icon fa fa-angle-down pull-right"></i>&nbsp; PM 10</h4>
-						<div class="pane" id="pm10">
+						<div class="pane" id="pm10Sensor">
 							<h5><b><i><u> Sensitive Groups:- </u> </i></b></h5>
 								<p id="SenitiveGrouppm10"> </p>
 							<h5 class="healthEffects"><b><i><u> Health Effects:- </u> </i> </b></h5>
@@ -269,7 +269,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<p id="Cautionarypm10"> </p>
 						</div>
 					<h4><i class="accordianSensorList menu-icon fa fa-angle-down pull-right"></i>&nbsp; CO</h4>
-						<div class="pane"id="co">
+						<div class="pane"id="coSensor">
 							<h5><b><i><u> Sensitive Groups:- </u> </i></b></h5>
 								<p id="SenitiveGroupco"> </p>							
 							<h5 class="healthEffects"><b><i><u> Health Effects:- </u> </i> </b></h5>
@@ -279,7 +279,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						</div>
 						
 					<h4><i class="accordianSensorList menu-icon fa fa-angle-down pull-right"></i>&nbsp; NO<sub>2</sub> </h4>
-						<div class="pane"id="no2">
+						<div class="pane"id="no2Sensor">
 							<h5><b><i><u> Sensitive Groups:- </u></i></b></h5>
 								<p id="SenitiveGroupno2"> </p>
 							<h5 class="healthEffects"><b><i><u> Health Effects:- </u> </i> </b></h5>

@@ -13,7 +13,7 @@ $(function() {
 		}
     });      
     
-	var url = "/storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?method=showSensorDataPoints&format=json"; //../ecoAPI/dev
+	var url = "/ecoAPI/dev/api/ecomappersapi.php?method=showSensorDataPoints&format=json"; //../ecoAPI/dev
         
     jsonData();
     //Take the graph data
@@ -78,7 +78,7 @@ $(function() {
         $formattedToTime = $toTimeTwentyFourHourFormat + ":00";
         $fullToDateWithTime = $formattedToDate + " " + $formattedToTime;
         
-        url = "/storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?method=showSensorDataPointsAsPerDateRange&format=json&fromDate="+$fullFromDateWithTime+"&toDate="+$fullToDateWithTime+""; //../ecoAPI/dev
+        url = "/ecoAPI/dev/api/ecomappersapi.php?method=showSensorDataPointsAsPerDateRange&format=json&fromDate="+$fullFromDateWithTime+"&toDate="+$fullToDateWithTime+""; //../ecoAPI/dev
         jsonData();
 	});
 
