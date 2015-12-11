@@ -12,7 +12,7 @@ $(function (){
 			method : "addDeviceDetails",
 			format : "json"
 		}
-		$.post("/ecoAPI/dev/api/sensorDetails.php",data)
+		$.post("http://storage.couragedigital.com/ecoAPI/dev/api/sensorDetails.php",data)
 			.done(function (response){
 				if(response.addDeviceDetailsResponse==="ERROR") {
 					alert('Devive details are not added successfully.Please try again..');
@@ -37,7 +37,7 @@ $(function (){
 			method : "updateDeviceDetails",
 			format : "json"
 		}
-		$.post("/ecoAPI/dev/api/sensorDetails.php",data)
+		$.post("http://storage.couragedigital.com/ecoAPI/dev/api/sensorDetails.php",data)
 			.done(function (response){
 				if(response.updateDeviceDetailsResponse==="ERROR_WHILE_UPDATINGING") {
 					alert('Devive details are not updated.Please try again..');
@@ -61,7 +61,7 @@ $(function (){
 			method : "removeDeviceDetails",
 			format : "json"
 		}
-		$.post("/ecoAPI/dev/api/sensorDetails.php",data)
+		$.post("http://storage.couragedigital.com/ecoAPI/dev/api/sensorDetails.php",data)
 			.done(function (response){
 				if(response.removeDeviceDetailsResponse==="ERROR_WHILE_REMOVING") {
 					alert('Devive not removed.Please try again..');
@@ -77,7 +77,7 @@ $(function (){
 	});
 	
 	//load device as per user
-	$.get("/ecoAPI/dev/api/sensorDetails.php?email="+email+"&method=loadDevice&format=json")
+	$.get("http://storage.couragedigital.com/ecoAPI/dev/api/sensorDetails.php?email="+email+"&method=loadDevice&format=json")
 		.done(function (response){
 			var select=document.getElementById("selectDeviceEdit");				
 			$.each(response.loadedDeviceList,function (index,loadDevice){

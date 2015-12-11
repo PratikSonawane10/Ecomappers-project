@@ -7,7 +7,7 @@ $(function (){
 				method : "checkemail",
 				format : "json"
 			};	
-			$.post("/ecoAPI/dev/api/userLoginAPI.php", data)
+			$.post("http://storage.couragedigital.com/ecoAPI/dev/api/userLoginAPI.php", data)
 			.done(function(response) {
 				if(response.checkemailResponse==="INVALID_EMAIL") {
 					alert('Please enter your registered email id..');
@@ -34,7 +34,7 @@ $(function (){
 				method : "setNewPassword",
 				format : "json"
 			};	
-			$.post("/ecoAPI/dev/api/userLoginAPI.php", data)
+			$.post("http://storage.couragedigital.com/ecoAPI/dev/api/userLoginAPI.php", data)
 			.done(function(response) {
 				if(response.setNewPasswordResponse==="ENTER_VALID_ACTIVATION_CODE") {
 					alert('Please enter valid code..');
@@ -67,7 +67,7 @@ $(function (){
 				method : "userRegistration",
 				format : "json"
 			};	
-			$.post("/ecoAPI/dev/api/userLoginAPI.php", data)
+			$.post("http://storage.couragedigital.com/ecoAPI/dev/api/userLoginAPI.php", data)
 			.done(function(response) {
 				if(response.saveUsersDetailsResponse==="ERROR") {
 					alert('You are not registered. Please try again..');
