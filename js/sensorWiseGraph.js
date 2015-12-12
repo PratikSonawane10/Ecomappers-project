@@ -19,7 +19,7 @@ $(function(){
 			}
 		});      
 		//for the first graph which is default
-		var url = "/storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?method=defaultSensorGraph&format=json&email="+email+"&nameOfSensor="+nameOfSensor+"&roomno="+roomno+""; 
+		var url = "/ecoAPI/dev/api/ecomappersapi.php?method=defaultSensorGraph&format=json&email="+email+"&nameOfSensor="+nameOfSensor+"&roomno="+roomno+""; 
 			
 		jsonData();
 		//Take the graph data
@@ -84,7 +84,7 @@ $(function(){
 			$formattedToTime = $toTimeTwentyFourHourFormat + ":00";
 			$fullToDateWithTime = $formattedToDate + " " + $formattedToTime;
 			//for the graph but as per user selected date
-			url = "/storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?method=showGraphOfSensor&format=json&fromDate="+$fullFromDateWithTime+"&toDate="+$fullToDateWithTime+"&email="+email+"&nameOfSensor="+nameOfSensor+"&roomno="+roomno+" "; //../ecoAPI/dev
+			url = "/ecoAPI/dev/api/ecomappersapi.php?method=showGraphOfSensor&format=json&fromDate="+$fullFromDateWithTime+"&toDate="+$fullToDateWithTime+"&email="+email+"&nameOfSensor="+nameOfSensor+"&roomno="+roomno+" "; //../ecoAPI/dev
 			jsonData();
 		});
 

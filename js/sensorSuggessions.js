@@ -8,7 +8,7 @@ $(function(){
 		if(roomno == null){
 			alert("please select your device location...");
 		}else {
-			$.get("http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?roomno="+roomno+"&email="+email+"&method=showSuggessions&format=json ")
+			$.get("/ecoAPI/dev/api/ecomappersapi.php?roomno="+roomno+"&email="+email+"&method=showSuggessions&format=json ")
 			.done(function (response){
 				$.each(response.showSuggessionsResponse, function(i,suggessions){
 					var nameOfSensor = suggessions.sensor_name;

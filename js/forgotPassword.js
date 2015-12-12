@@ -7,7 +7,7 @@ $(function (){
 				method : "checkemail",
 				format : "json"
 			};	
-			$.post("http://storage.couragedigital.com/ecoAPI/dev/api/userLoginAPI.php", data)
+			$.post("/ecoAPI/dev/api/userLoginAPI.php", data)
 			.done(function(response) {
 				if(response.checkemailResponse==="INVALID_EMAIL") {
 					alert('Please enter your registered email id..');
@@ -34,7 +34,7 @@ $(function (){
 				method : "setNewPassword",
 				format : "json"
 			};	
-			$.post("http://storage.couragedigital.com/ecoAPI/dev/api/userLoginAPI.php", data)
+			$.post("/ecoAPI/dev/api/userLoginAPI.php", data)
 			.done(function(response) {
 				if(response.setNewPasswordResponse==="ENTER_VALID_ACTIVATION_CODE") {
 					alert('Please enter valid code..');
@@ -51,6 +51,7 @@ $(function (){
 	});	 
 	
 	$('#registrationLink').click(function() {
+		$("#authentication").load("registration.html"); 
 		$("body").on("click","button.registrationSubmit", function(e){
 			
 			var name=$("#name").val();
@@ -67,7 +68,7 @@ $(function (){
 				method : "userRegistration",
 				format : "json"
 			};	
-			$.post("http://storage.couragedigital.com/ecoAPI/dev/api/userLoginAPI.php", data)
+			$.post("/ecoAPI/dev/api/userLoginAPI.php", data)
 			.done(function(response) {
 				if(response.saveUsersDetailsResponse==="ERROR") {
 					alert('You are not registered. Please try again..');
@@ -81,7 +82,7 @@ $(function (){
 				alert('Something seems to have gone wrong! May be our system is temporarily down. Please try later!');
 			});			
 		});
-		$("#authentication").load("registration.html"); 												
+														
 	});	 
 	
 });

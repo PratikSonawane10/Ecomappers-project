@@ -1,69 +1,61 @@
 $(function() {
-	
-	var remember = $.cookie('remember');
-        if (remember == 'true') 
-        {
-            var email = $.cookie('email');
-            var password = $.cookie('password');
-            // autofill the fields
-            $('#email').val(email);
-            $('#password').val(password);
-        }
+	$('#registrationLink').on("click",function() {
+		$("#authentication").load("registration.html"); 
+	});	
 		var minPassLen = 8, maxPassLen = 12;
 		var passwordMsg = "Password must be between " + minPassLen + " and " + maxPassLen + " characters, inclusive.";
-		jQuery.validator.setDefaults({
-			debug: true,      //Avoids form submit. Comment when in production.
+		$("#registrationForm").validate({
 			success: "valid",
 			submitHandler: function() {	
-			
-				var email = $('#email').val();
-				var password = $('#password').val();
-				//var password = SHA1($("#password").val());
-				
-				localStorage.setItem("email", email);
-				localStorage.setItem("password", password);
-				
-				if ($('#remember').is(':checked')){
-					// set cookies to expire in 365 days
-					$.cookie('email', email, { expires: 365 });
-					$.cookie('password', password, { expires: 365 });
-					$.cookie('remember', true, { expires: 365 });    					
-				} 
-				
-				/*var fullURL = sessionStorage.getItem("url");
-				var separateURL =  fullURL.split("/");
-				if(separateURL[4]!=="") {
-					var url = separateURL[4];
-				}
-				else {
-					var url = "index.html";
-				} */
-									
-				var data = {
-					email : email,
-					password : password,
-					method : "login",
-					format : "json"
-				};		
-				$.post("/ecoAPI/dev/api/userLoginAPI.php", data)
-				.done(function(response) {
-					if(response.loginStatus==="LOGGED_IN") {
+				$("body").on("click","button.registrationSubmit", function(e){
 						
-						window.location = "index.html";
-						$("#usernameLabel").append(email);
-					}
-					else {					
-						alert('There is error while login! Please check your Credentials');
-					}
-				}).fail(function(){
-					alert('Something seems to have gone wrong! May be our system is temporarily down. Please try later!');
+						var name=$("#name").val();
+						var city=$("#city").val();
+						var mobileno=$("#mobileno").val();
+						var email=$("#email").val();			
+						var password=$("#password").val();
+						var confirmpassword=$("#confirmpassword").val();
+						
+						var data = {
+							name : name,
+							city : city,
+							mobileno : mobileno,
+							email : email,
+							confirmpassword : confirmpassword,				
+							method : "userRegistration",
+							format : "json"
+						};	
+						$.post("/ecoAPI/dev/api/userLoginAPI.php", data)
+						.done(function(response) {
+							if(response.saveUsersDetailsResponse==="ERROR") {
+								alert('You are not registered. Please try again..');
+							}
+							else {			
+								alert('You are successfully Registered..');
+								e.preventDefault();			
+								window.location.href = "login.html";
+							}
+						}).fail(function(){
+							alert('Something seems to have gone wrong! May be our system is temporarily down. Please try later!');
+						});			
 				});
 			}
 		});
+	
    // validate signup form on keyup and submit
-   $("#loginForm").validate({
+   $("#registrationForm").validate({
       rules: {
-         email: {
+         name: {
+            required: true
+         },
+		 city: {
+            required: true		
+         },
+		 mobileno: {
+            required: true, 
+			number: true			
+         },
+		 email: {
             required: true, 
 			email: true			
          },
@@ -71,10 +63,24 @@ $(function() {
             required: true,
             minlength: minPassLen,
             maxlength: maxPassLen
+         },
+		 confirmpassword: {
+            required: true,
+            minlength: minPassLen,
+            maxlength: maxPassLen
          }
       },
       messages: {
-         email: {
+         name: {
+            required: "name required",	
+         },
+		  city: {
+            required: "city required",	
+         },
+		  mobileno: {
+            required: "mobileno required",	
+         },
+		  email: {
             required: "email required",	
          },
          password: {
@@ -82,7 +88,12 @@ $(function() {
             minlength: passwordMsg,
             maxlength: passwordMsg
 			
-         }
+         },
+		 confirmpassword:{
+			rquired: "Password required",
+            minlength: passwordMsg,
+            maxlength: passwordMsg
+		 }
        },
 		errorElement : 'form',
 		errorLabelContainer: 'Error'

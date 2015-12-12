@@ -13,7 +13,7 @@ $(function() {
 	var createDynamicList = document.getElementById("dynamicList");
 	var li;	
 	// to laod room no as per loged in user
-		$.get("http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?email="+email+"&method=userRooms&format=json")
+		$.get("/ecoAPI/dev/api/ecomappersapi.php?email="+email+"&method=userRooms&format=json")
 			.done(function (response){
 			if(response.loadRooomsList ==""){
 					alert("Device is not available.. please configure your device..");
@@ -52,7 +52,7 @@ $(function() {
 		});
 	//show sensor values as per room no of loged in user
 	function showAllSensorsByRoom(roomno,email) {	
-		$.get("http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?roomno="+roomno+"&email="+email+"&method=roomWiseSensors&format=json")
+		$.get("/ecoAPI/dev/api/ecomappersapi.php?roomno="+roomno+"&email="+email+"&method=roomWiseSensors&format=json")
 		//$.get("http://localhost/EcomappersAPI/api/ecomappersapi.php?roomno="+roomno+"&email="+email+"&method=roomWiseSensors&format=json")
 			.done(function (response){
 					if(response.showRoomWiseSensorsResponse==""){						
@@ -74,17 +74,17 @@ $(function() {
 								$("#sens"+nameOfSensor).append(sensvalue);	
 
 								if(status == "good" ){												
-									$("#"+nameOfSensor).css('cssText','background-color:green !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');											
+									$("#"+nameOfSensor).css('cssText','background-color:#009900 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');											
 								} else if(status == "moderate" ){
-									$("#"+nameOfSensor).css('cssText','background-color:yellow !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');												
+									$("#"+nameOfSensor).css('cssText','background-color:#ffb466 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');												
 								}else if(status == "unhealthy for Sensitive Groups"){
-									$("#"+nameOfSensor).css('cssText','background-color:#FF7600 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');												
+									$("#"+nameOfSensor).css('cssText','background-color: #FF7600 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');												
 								}else if(status == "unhealthy"){
-									$("#"+nameOfSensor).css('cssText','background-color:red !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');												
+									$("#"+nameOfSensor).css('cssText','background-color:#cc2800 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');												
 								}else if(status == "very Unhealthy" ){
-									$("#"+nameOfSensor).css('cssText','background-color:#990049 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');												
+									$("#"+nameOfSensor).css('cssText','background-color:#e62d00 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');												
 								}else if(status == "hazardous"){
-									$("#"+nameOfSensor).css('cssText','background-color:#7e0018 !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');
+									$("#"+nameOfSensor).css('cssText','background-color:#66001c !important ;background-repeat: no-repeat; background-position: 50%;  border-radius: 50%; width: 100px height: 100px;');
 								}											
 						});
 						remainingSensorsName = _.difference(allSensorsName,sensorsNameFromResponse);
@@ -126,15 +126,15 @@ $(function() {
 						});      
 						var realtime = "on";
 						//for the first graph which is default
-						var url = "http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?method=defaultSensorGraph&format=json&email="+email+"&nameOfSensor="+sensNameForGraph+"&roomno="+roomno+""; //../ecoAPI/dev
+						var url = "/ecoAPI/dev/api/ecomappersapi.php?method=defaultSensorGraph&format=json&email="+email+"&nameOfSensor="+sensNameForGraph+"&roomno="+roomno+""; //../ecoAPI/dev
 						
 						jsonData();
 						function sensorPointRange(){
 							var sensNameForGraph=localStorage.getItem("sensNameForGraph");
 							var minimumValue;
 							var maximumValue;
-							//$.get("http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?method=pointRangeForYAxis&format=json&nameOfSensor="+sensNameForGraph+"")
-							$.get("http://localhost/EcomappersAPI/api/ecomappersapi.php?method=pointRangeForYAxis&format=json&nameOfSensor="+sensNameForGraph+"")
+							$.get("/ecoAPI/dev/api/ecomappersapi.php?method=pointRangeForYAxis&format=json&nameOfSensor="+sensNameForGraph+"")
+							//$.get("http://localhost/EcomappersAPI/api/ecomappersapi.php?method=pointRangeForYAxis&format=json&nameOfSensor="+sensNameForGraph+"")
 								.done(function (response){
 									$.each(response.showSensorPointsResponse,function (index,sensorPointRange){
 										minimumValue=sensorPointRange.starting_point;
@@ -223,7 +223,7 @@ $(function() {
 							$formattedToTime = $toTimeTwentyFourHourFormat + ":00";
 							$fullToDateWithTime = $formattedToDate + " " + $formattedToTime;
 							//for the graph but as per user selected date
-							url = "http://storage.couragedigital.com/ecoAPI/dev/api/ecomappersapi.php?method=showGraphOfSensor&format=json&fromDate="+$fullFromDateWithTime+"&toDate="+$fullToDateWithTime+"&email="+email+"&nameOfSensor="+sensNameForGraph+"&roomno="+roomno+" "; //../ecoAPI/dev
+							url = "/ecoAPI/dev/api/ecomappersapi.php?method=showGraphOfSensor&format=json&fromDate="+$fullFromDateWithTime+"&toDate="+$fullToDateWithTime+"&email="+email+"&nameOfSensor="+sensNameForGraph+"&roomno="+roomno+" "; //../ecoAPI/dev
 							realtime = "off";
 							jsonData();
 						});
@@ -231,7 +231,7 @@ $(function() {
 						//Plot the Graph
 						function plotGraph(data,endingPointOfSensor) {
 							dataset = [
-										{ label: "Pollution Sensor 1", data: data }
+										{ label:" "+ sensNameForGraph, data: data }
 									];
 							
 							$.plot($("#sensorgraph"), dataset, {
