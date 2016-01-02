@@ -7,9 +7,9 @@ $(function() {
             var password = $.cookie('password');
             // autofill the fields
             $('#email').val(email);
-            $('#password').val(password);
+            SHA1($("#password").val()).val(password);
         }
-		var minPassLen = 8, maxPassLen = 12;
+		var minPassLen = 8, maxPassLen = 4096;
 		var passwordMsg = "Password must be between " + minPassLen + " and " + maxPassLen + " characters, inclusive.";
 		jQuery.validator.setDefaults({
 			debug: true,      //Avoids form submit. Comment when in production.
@@ -17,14 +17,14 @@ $(function() {
 			submitHandler: function() {	
 			
 				var email = $('#email').val();
-				var password = $('#password').val();
-				//var password = SHA1($("#password").val());
+				//var password = $('#password').val();
+				var password = SHA1($("#password").val());
 				
 				localStorage.setItem("email", email);
 				localStorage.setItem("password", password);
 				
 				if ($('#remember').is(':checked')){
-					// set cookies to expire in 365 days
+					// set cookies to expire in 14 days
 					$.cookie('email', email, { expires: 365 });
 					$.cookie('password', password, { expires: 365 });
 					$.cookie('remember', true, { expires: 365 });    					
@@ -38,17 +38,20 @@ $(function() {
 				else {
 					var url = "index.html";
 				} */
-									
+				var email = $("#email").val();
+				var password = SHA1($("#password").val());
 				var data = {
 					email : email,
 					password : password,
 					method : "login",
 					format : "json"
 				};		
-				$.post("/ecoAPI/dev/api/userLoginAPI.php", data)
+				$.post("http://localhost/EcomappersAPI/api/userLoginAPI.php", data)
 				.done(function(response) {
 					if(response.loginStatus==="LOGGED_IN") {
 						
+						//sessionStorage.setItem("email",email);
+						//sessionStorage.setItem("password",password);
 						window.location = "index.html";
 						$("#usernameLabel").append(email);
 					}
